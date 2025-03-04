@@ -1,8 +1,9 @@
 # Netflix Content Trend Analysis (SQL-Based EDA)
 This project is part of the “Data Analysis Project,” focusing on SQL-based EDA for Netflix contents data. Over two weeks, leveraged real Netflix data to practice SQL and Excel for data preprocessing, analysis, and visualization, aiming to uncover meaningful insights into Netflix’s content strategies.
-# Project Overview
-## Motivation and Objectives
-Motivation: Netflix has rapidly grown into a leading global streaming platform. With the OTT (Over-the-Top) market expanding and competition intensifying, we chose Netflix’s dataset for hands-on SQL/Excel practice—rich enough for meaningful analysis and relevant for generating insights about OTT strategies.
+## Project Overview
+### Motivation and Objectives
+Netflix has rapidly grown into a leading global streaming platform. With the OTT (Over-the-Top) market expanding and competition intensifying, we chose Netflix’s dataset for hands-on SQL/Excel practice—rich enough for meaningful analysis and relevant for generating insights about OTT strategies.
+
 Objectives:
 In 2020, the production company found itself in urgent need of Netflix investment as competition in the OTT market continued to intensify. Securing support from a global platform had become essential for the company’s next big leap. Against this backdrop, the question emerged:
 
