@@ -51,7 +51,6 @@ Main Dataset: [“Netflix Shows and Movies - Exploratory Analysis”](https://ww
 
 
 ## Tools and Frameworks
- + SQL: Data cleansing, preprocessing, and feature extraction (e.g., missing-value handling, type conversions)
- + Excel: Data visualization (charts, graphs), further exploratory analysis.
- + Tableau: Data visualization, dashboard creation
+ + SQL: Data cleansing, preprocessing, and feature extraction (e.g., missing-value handling, type conversions
+ + Tableau: Data visualization, dashboard creation (charts, graphs)
 
