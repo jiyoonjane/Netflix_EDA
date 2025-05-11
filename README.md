@@ -58,67 +58,34 @@ Main Dataset: [“Netflix Shows and Movies - Exploratory Analysis”](https://ww
  + Tableau: Data visualization, dashboard creation (charts, graphs)
 
 
-## Data Preprocessing Workflow
--- Drop the table if it already exists to avoid conflicts
-DROP TABLE IF EXISTS cleaned_netflix;
-
--- Create a cleaned version of the Netflix dataset
-CREATE TABLE cleaned_netflix AS
-SELECT
-    show_id,
-    title,
-    -- Keep missing directors and cast entries, replacing NULLs with 'Unknown'
-    COALESCE(director, 'Unknown') AS director,
-    COALESCE(cast, 'Unknown') AS cast,
-    COALESCE(country, 'Unknown') AS country,
-
-    -- Convert date_added to ISO format (YYYY-MM-DD)
-    CASE
-        WHEN date_added IS NOT NULL THEN STRFTIME('%Y-%m-%d', date_added)
-        ELSE NULL
-    END AS date_added,
-
-    release_year,
-
-    -- Retain rating for classification analysis
-    rating,
-
-    duration,
-
-    -- Extract numeric portion of duration (in minutes or seasons)
-    CASE
-        WHEN duration LIKE '% min' THEN CAST(SUBSTR(duration, 1, INSTR(duration, ' ') - 1) AS INT)
-        WHEN duration LIKE '% Season%' THEN CAST(SUBSTR(duration, 1, INSTR(duration, ' ') - 1) AS INT)
-        ELSE NULL
-    END AS duration_num,
-
-    listed_in,
-    description,
-
-    -- Replace NULL type values with the dataset's mode (most frequent type)
-    (
-        SELECT mode_type
-        FROM (
-            SELECT type AS mode_type,
-                   COUNT(*) AS cnt
-            FROM raw_netflix
-            GROUP BY type
-            ORDER BY cnt DESC
-            LIMIT 1
-        )
-    ) AS type
-
-FROM raw_netflix
--- Remove rows where critical fields are missing
-WHERE rating IS NOT NULL
-  AND date_added IS NOT NULL;
-
-
 
 ## Dashboard
 [Dashboard link](https://public.tableau.com/app/profile/jiyoon.shin1127/viz/NetflixDashboards-blackver_/1)
 ![image](https://github.com/user-attachments/assets/a934abc4-bc89-4da9-8c8f-3d72dedf6910)
 
 
-[Dashboard link](https://public.tableau.com/app/profile/jiyoon.shin1127/viz/NetflixDashboards_17466287074980/1)
-![image](https://github.com/user-attachments/assets/415aa925-b2a2-40b8-9f7f-8b5c020686e7)
+## Conclusion
++ Overall Content Strategy (2019 Data)
+++ Ratings Trends
+Family-friendly titles have steadily declined since 2013, while TV-MA (adult) content has grown, with Europe and South America showing the highest adult-content ratios and Asia the lowest.
+
+++ Core Genres & Formats
+International films and dramas dominate Netflix’s catalog and should remain primary investments. TV-show production is outpacing movies, and film runtimes are shortening while TV episodes hold around 40 minutes.
+
+++ Regional Production Patterns
+The U.S. leads in total volume, followed by India, the U.K., Japan, and South Korea. The U.S. favors films, whereas Japan and Korea skew heavily toward TV-shows.
+
+++ 2020 Real-World Check
+Among the top 10 titles, 70 % were TV-MA, validating the rise of adult content. Genre and country-specific preferences (e.g. U.S. dramas, India’s international films, Korea’s local series) aligned closely with 2019 predictions.
+
+++ Timing & COVID Impact
+Contrary to expected spring and autumn peaks, 2020 saw content surges in January and September—likely due to pandemic-related production delays and the lumping together of originals and licensed titles.
+
+
+## Recommendations
+
++ Separate Originals vs. Licensed – Originals follow their own release cadence and deserve distinct analysis.
+
++ Incorporate Viewing Metrics – Use playtime and subscriber-growth data for more accurate performance insights.
+
++ Refine Seasonal Strategy – Plan release windows around spring/fall while building in flexibility for external disruptions.
