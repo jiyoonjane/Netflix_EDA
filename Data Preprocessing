@@ -48,6 +48,67 @@ SELECT
             LIMIT 1
         )
     ) AS type FROM raw_netflix
+
+--  Missing Value Handling
+-- director: 1,901 missing → 'No Info'
+-- cast:    556 missing → 'No Info'
+-- country: 427 missing → 'No Info'
+-- date_added: 642 missing → 'Not Available'
+-- rating:   10 missing → 'Not Rated'
+
+--  Data Type Conversion
+-- date_added: string → DATE
+-- release_year: integer (unchanged)
+-- duration: string → integer (minutes for films, seasons for TV shows)
+
+--  Data Cleaning & Integration
+-- listed_in: extract primary genre from multi-value strings
+-- country: keep first country in multi-country entries
+-- rating: normalize formats (e.g. 'TV-Y7-FV' → 'TV-Y7')
+
+--  Analysis Data Preparation
+-- prepare date_added & release_year for new content timing analysis
+-- group by listed_in for genre-level insights
+-- compare movies vs. TV shows via type
+-- analyze age ratings by rating
+-- compare content counts by country
+-- evaluate director & cast impact on counts
+
+-- Drop the table if it already exists to avoid conflicts
+DROP TABLE IF EXISTS cleaned_netflix;
+
+    -- date_added conversion to ISO date
+    CASE WHEN date_added IS NOT NULL THEN STRFTIME('%Y-%m-%d', date_added)
+         ELSE NULL END AS date_added,
+
+    release_year,
+    rating,
+    duration,
+
+    -- parse numeric duration
+    CASE
+      WHEN duration LIKE '% min'     THEN CAST(SUBSTR(duration,1,INSTR(duration,' ')-1) AS INT)
+      WHEN duration LIKE '% Season%' THEN CAST(SUBSTR(duration,1,INSTR(duration,' ')-1) AS INT)
+      ELSE NULL
+    END AS duration_num,
+
+    listed_in,
+    description,
+
+    -- fill missing type with mode
+    (
+      SELECT mode_type
+      FROM (
+        SELECT type AS mode_type, COUNT(*) AS cnt
+        FROM raw_netflix
+        GROUP BY type
+        ORDER BY cnt DESC
+        LIMIT 1
+      )
+    ) AS type
+FROM raw_netflix
+WHERE rating IS NOT NULL
+  AND date_added IS NOT NULL;
 -- Remove rows where critical fields are missing
 WHERE rating IS NOT NULL
   AND date_added IS NOT NULL;
