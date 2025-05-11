@@ -7,6 +7,7 @@ Netflix has rapidly grown into a leading global streaming platform. With the OTT
 Objectives:
 In 2020, the production company found itself in urgent need of Netflix investment as competition in the OTT market continued to intensify. Securing support from a global platform had become essential for the company’s next big leap. Against this backdrop, the question emerged:
 
+
 ### “What kind of content proposal would capture Netflix’s attention and lead to funding in 2020?”
 
 This project set out to explore that question through a data-driven approach, focusing on the following goals:
@@ -27,6 +28,7 @@ Formulate a data-supported pitch for why certain content might be more likely to
 To accomplish this, the team conducted SQL-based EDA on a large Netflix dataset—covering content type (Movies vs. TV Shows), country, date added, release year, genre listings, and age ratings. The storyline centers on the fictional scenario of “High Five-2” aiming to pitch the next big show or film to Netflix executives. By diving into factors that have historically guided Netflix’s content decisions, the project sheds light on which genres, formats, and age ratings might lead to higher viewer engagement and thus attract Netflix’s funding.
 
 In sum, this project marries real data with a narrative of high-stakes content pitching, illustrating how strategic, data-driven analysis can inform crucial decisions in a highly competitive OTT landscape.
+
 
 ## Data Source and Description
 Main Dataset: [“Netflix Shows and Movies - Exploratory Analysis”](https://www.kaggle.com/code/shivamb/netflix-shows-and-movies-exploratory-analysis/notebook) from Kaggle 
@@ -50,11 +52,19 @@ Main Dataset: [“Netflix Shows and Movies - Exploratory Analysis”](https://ww
 | `Description`  | The summary description  |
 
 
+
 ## Tools and Frameworks
  + SQL: Data cleansing, preprocessing, and feature extraction (e.g., missing-value handling, type conversions
  + Tableau: Data visualization, dashboard creation (charts, graphs)
 
+
 ## Dashboard
 [Dashboard link](https://public.tableau.com/app/profile/jiyoon.shin1127/viz/NetflixDashboards-blackver_/1)
 ![image](https://github.com/user-attachments/assets/a934abc4-bc89-4da9-8c8f-3d72dedf6910)
+
+
+
+[Dashboard link](https://public.tableau.com/app/profile/jiyoon.shin1127/viz/NetflixDashboards_17466287074980/1)
+![image](https://github.com/user-attachments/assets/415aa925-b2a2-40b8-9f7f-8b5c020686e7)
+
 
