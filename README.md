@@ -64,21 +64,20 @@ Main Dataset: [“Netflix Shows and Movies - Exploratory Analysis”](https://ww
 ![image](https://github.com/user-attachments/assets/a934abc4-bc89-4da9-8c8f-3d72dedf6910)
 
 
-## Conclusion
-+ Overall Content Strategy (2019 Data)
-++ Ratings Trends
+## Conclusion (overall content strategy based on 2019 data)
++ Ratings Trends
 Family-friendly titles have steadily declined since 2013, while TV-MA (adult) content has grown, with Europe and South America showing the highest adult-content ratios and Asia the lowest.
 
-++ Core Genres & Formats
++ Core Genres & Formats
 International films and dramas dominate Netflix’s catalog and should remain primary investments. TV-show production is outpacing movies, and film runtimes are shortening while TV episodes hold around 40 minutes.
 
-++ Regional Production Patterns
++ Regional Production Patterns
 The U.S. leads in total volume, followed by India, the U.K., Japan, and South Korea. The U.S. favors films, whereas Japan and Korea skew heavily toward TV-shows.
 
-++ 2020 Real-World Check
++ 2020 Real-World Check
 Among the top 10 titles, 70 % were TV-MA, validating the rise of adult content. Genre and country-specific preferences (e.g. U.S. dramas, India’s international films, Korea’s local series) aligned closely with 2019 predictions.
 
-++ Timing & COVID Impact
++ Timing & COVID Impact
 Contrary to expected spring and autumn peaks, 2020 saw content surges in January and September—likely due to pandemic-related production delays and the lumping together of originals and licensed titles.
 
 
