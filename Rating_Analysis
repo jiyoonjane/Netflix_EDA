@@ -3,11 +3,8 @@
 Overview
 
 In this section, we test three hypotheses regarding Netflix’s content mix by age rating:
-
 The proportion of family-friendly content decreases over time.
-
 The share of TV‑MA (adult) content increases over time.
-
 The ratio of TV‑MA content is highest in the United States compared to other regions with using year-over-year proportion calculations, linear regression, and t‑tests to validate each hypothesis and draw strategic implications.
 
 1. Data Preparation
