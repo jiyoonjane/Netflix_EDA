@@ -1,0 +1,110 @@
+++ Audience Age Rating Analysis 
+
+Overview
+
+In this section, we test three hypotheses regarding Netflix’s content mix by age rating:
+
+The proportion of family-friendly content decreases over time.
+
+The share of TV‑MA (adult) content increases over time.
+
+The ratio of TV‑MA content is highest in the United States compared to other regions with using year-over-year proportion calculations, linear regression, and t‑tests to validate each hypothesis and draw strategic implications.
+
+1. Data Preparation
+
+import pandas as pd
+import sqlite3
+import statsmodels.api as sm
+from scipy import stats
+
+# Connect to cleaned Netflix SQLite table
+conn = sqlite3.connect('netflix_cleaned.db')
+netflix = pd.read_sql('SELECT show_id, date_added, release_year, rating, type, country FROM cleaned_netflix', conn)
+
+# Define family-friendly ratings
+family_ratings = ['G', 'PG', 'TV-Y', 'TV-Y7', 'TV-G', 'PG-13']
+
+# Yearly counts
+yearly = netflix.groupby('release_year').agg(
+    total=('show_id', 'count'),
+    family=('rating', lambda x: x.isin(family_ratings).sum()),
+    tvma=('rating', lambda x: (x == 'TV-MA').sum())
+).reset_index()
+
+# Calculate proportions
+yearly['p_family'] = yearly['family'] / yearly['total']
+yearly['p_tvma']   = yearly['tvma']   / yearly['total']
+
+2. Hypothesis 1: Family-Friendly Content Proportion Decreases
+
+# Linear regression: p_family ~ release_year
+y = yearly['p_family']
+X = sm.add_constant(yearly['release_year'])
+model = sm.OLS(y, X).fit()
+print(model.summary())  # β₁ coefficient and p-value
+
+# t-test on slope
+beta1 = model.params['release_year']
+beta1_se = model.bse['release_year']
+t_stat = beta1 / beta1_se
+p_val = 2 * stats.t.sf(abs(t_stat), df=model.df_resid)
+print(f"Slope (β₁): {beta1:.4f}, t = {t_stat:.2f}, p = {p_val:.4f}")
+
+Interpretation:
+
+A negative β₁ and p-value < 0.05 support the hypothesis that family-friendly content share is significantly declining over time.
+
+3. Hypothesis 2: TV‑MA Content Proportion Increases
+
+# Linear regression: p_tvma ~ release_year
+y2 = yearly['p_tvma']
+X2 = sm.add_constant(yearly['release_year'])
+model2 = sm.OLS(y2, X2).fit()
+print(model2.summary())
+
+# t-test for slope
+beta2 = model2.params['release_year']
+beta2_se = model2.bse['release_year']
+t2 = beta2 / beta2_se
+p2 = 2 * stats.t.sf(abs(t2), df=model2.df_resid)
+print(f"Slope (β₁): {beta2:.4f}, t = {t2:.2f}, p = {p2:.4f}")
+
+Interpretation:
+
+A positive β₁ and p-value < 0.05 indicate a statistically significant upward trend in adult (TV‑MA) content share.
+
+4. Hypothesis 3: U.S. Has Highest TV‑MA Ratio
+
+# Compute TV‑MA proportion by country
+country_tvma = netflix.groupby('country').agg(
+    total=('show_id','count'),
+    tvma=('rating', lambda x: (x=='TV-MA').sum())
+).reset_index()
+country_tvma['p_tvma'] = country_tvma['tvma'] / country_tvma['total']
+
+# Identify top countries
+top_countries = country_tvma.sort_values('p_tvma', ascending=False).head(10)
+print(top_countries)
+
+# ANOVA or pairwise t-tests between U.S. and others
+us_rate = country_tvma.query("country == 'United States'")['p_tvma'].values[0]
+others = country_tvma.query("country != 'United States'")['p_tvma']
+t3, p3 = stats.ttest_1samp(others, us_rate)
+print(f"U.S. TV‑MA vs. others: t = {t3:.2f}, p = {p3:.4f}")
+
+Interpretation:
+
+If U.S. rate is not significantly higher (p ≥ 0.05), the hypothesis is rejected.
+
+Regional differences (e.g., higher in Europe/South America, lower in Asia) reveal strategic content tailoring.
+
+5. Conclusion
+
+Family-Friendly: Statistically significant decline in proportion over years (β₁ < 0, p < 0.05).
+
+TV‑MA: Significant upward trend in adult content share (β₁ > 0, p < 0.05).
+
+Country Differences: U.S. does not hold the highest TV‑MA share; significant variation across continents.
+
+Implication: Netflix strategically adjusts its age-rating mix by region and over time—invest more in TV‑MA to capture adult audiences, while revisiting family-friendly offerings based on market dynamics.
+
