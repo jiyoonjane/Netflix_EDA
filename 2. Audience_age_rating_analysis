@@ -1,4 +1,4 @@
-# 2. Audience Age Rating Analysis 
+# 2. Audience Age Rating Analysis
 
 ## Overview
 
@@ -8,7 +8,7 @@ In this section, we test three hypotheses regarding Netflix’s content mix by a
 2. The share of TV‑MA (adult) content increases over time.
 3. The ratio of TV‑MA content is highest in the United States compared to other regions.
 
-with using year-over-year proportion calculations, linear regression, and t‑tests to validate each hypothesis and draw strategic implications.
+We use year-over-year proportion calculations, linear regression, and t‑tests to validate each hypothesis and draw strategic implications.
 
 ---
 
@@ -22,7 +22,11 @@ from scipy import stats
 
 # Connect to cleaned Netflix SQLite table
 conn = sqlite3.connect('netflix_cleaned.db')
-netflix = pd.read_sql('SELECT show_id, date_added, release_year, rating, type, country FROM cleaned_netflix', conn)
+netflix = pd.read_sql(
+    'SELECT show_id, date_added, release_year, rating, type, country FROM cleaned_netflix',
+    conn
+)
+conn.close()
 
 # Define family-friendly ratings
 family_ratings = ['G', 'PG', 'TV-Y', 'TV-Y7', 'TV-G', 'PG-13']
@@ -122,3 +126,4 @@ print(f"U.S. TV‑MA vs. others: t = {t3:.2f}, p = {p3:.4f}")
 * **Country Differences:** U.S. does not hold the highest TV‑MA share; significant variation across continents.
 
 **Implication:** Netflix strategically adjusts its age-rating mix by region and over time—invest more in TV‑MA to capture adult audiences, while revisiting family-friendly offerings based on market dynamics.
+
