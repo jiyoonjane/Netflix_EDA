@@ -126,4 +126,3 @@ print(f"U.S. TV‑MA vs. others: t = {t3:.2f}, p = {p3:.4f}")
 * **Country Differences:** U.S. does not hold the highest TV‑MA share; significant variation across continents.
 
 **Implication:** Netflix strategically adjusts its age-rating mix by region and over time—invest more in TV‑MA to capture adult audiences, while revisiting family-friendly offerings based on market dynamics.
-
