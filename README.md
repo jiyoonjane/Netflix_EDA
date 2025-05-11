@@ -54,3 +54,7 @@ Main Dataset: [“Netflix Shows and Movies - Exploratory Analysis”](https://ww
  + SQL: Data cleansing, preprocessing, and feature extraction (e.g., missing-value handling, type conversions
  + Tableau: Data visualization, dashboard creation (charts, graphs)
 
+## Dashboard
+[Dashboard link](https://public.tableau.com/app/profile/jiyoon.shin1127/viz/NetflixDashboards-blackver_/1)
+![image](https://github.com/user-attachments/assets/a934abc4-bc89-4da9-8c8f-3d72dedf6910)
+
